@@ -5,7 +5,6 @@ import java.util.Collections;
 
 public class Principal {
 
-    
     public static List<Zombie> zombies = new ArrayList<>();
     public static Scanner scan = new Scanner(System.in);
 
