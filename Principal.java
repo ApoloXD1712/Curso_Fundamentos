@@ -1,9 +1,11 @@
 import java.time.LocalDate;
 import java.util.*;
 import java.util.Random;
+import java.util.Collections;
+
 public class Principal {
 
-    public static List<Ubicacion> ubicaciones = new ArrayList<>();
+    
     public static List<Zombie> zombies = new ArrayList<>();
     public static Scanner scan = new Scanner(System.in);
 
@@ -20,9 +22,9 @@ public class Principal {
         System.out.println("9: se dira la ubicacion mas segura");
         System.out.println("10: se mostraran las ciudades de la mas cercana a la mas alejada de Alejandria");
         System.out.println("11: Frase aleatoria de zombies");
-        System.out.println("12: funcionalidad de la alcaldesa");
+        System.out.println("12: La alcalesa le quita 500 de vida a todos los zombies");
         Principal.mostrarmenu();
-        
+
     }
 
     public static void mostrarmenu() {
@@ -30,14 +32,14 @@ public class Principal {
         int x = 0;
 
         do {
-       
+            System.out.println("Ingrese un numero");
             x = scan.nextInt();
             System.out.println(x);
             int f = x;
             switch (f) {
                 case 1:
 
-                    if(zombies.size() >= 5) {
+                    if (zombies.size() >= 5) {
                         System.out.println("Ya no se pueden mas");
                         break;
                     } else {
@@ -65,7 +67,7 @@ public class Principal {
                         zombieAInsertar.setNacimiento(nacimiento);
 
                         zombies.add(zombieAInsertar);
-                        contador ++;
+                        contador++;
                         break;
                     }
 
@@ -78,10 +80,9 @@ public class Principal {
 
                 case 3:
                     System.out.println(contador);
-                    break;
                 case 4:
                     for (Zombie z : zombies) {
-                        if(z.getTipoSangre().equals("AB+") || z.getTipoSangre().equals("O+") ){
+                        if (z.getTipoSangre().equals("AB+") || z.getTipoSangre().equals("O+")) {
                             System.out.println(z.toString());
                         }
                     }
@@ -89,7 +90,7 @@ public class Principal {
                     break;
                 case 5:
                     for (Zombie z : zombies) {
-                        if(z.getNacimiento().isAfter(LocalDate.of(2000, 12, 12)) ){
+                        if (z.getNacimiento().isAfter(LocalDate.of(2000, 12, 12))) {
                             System.out.println(z.toString());
                         }
                         // Se mostraran todos los zombies que nacieron despues del 2000
@@ -99,6 +100,7 @@ public class Principal {
                     for (Zombie z : zombies) {
                         int temp = z.getSalud();
                         int num = temp / 2;
+                        z.setSalud(num);
                     }
                     break;
                 case 7:
@@ -119,66 +121,76 @@ public class Principal {
 
                     ubicacionaInsertar.setCantidad(cantidad);
 
-                    ubicaciones.add(ubicacionaInsertar);
+                    Ubicacion.ubicaciones.add(ubicacionaInsertar);
 
-                    
                     break;
                 case 8:
-                    for (Ubicacion u : ubicaciones) {
+                    for (Ubicacion u : Ubicacion.ubicaciones) {
                         System.out.println(u.toString());
                     }
                     break;
                 case 9:
-                //No esta completo, no me dió la logio JASJASJA
-                //Intenté pero no me dió tampoco by: Alejo
+                String g = Ubicacion.casoNueve();
+                    System.out.println(g);
                 break;
-
-                case 11:
+         
+                case 10:
+                Collections.sort(Ubicacion.ubicaciones);
+         
+                for(Ubicacion u: Ubicacion.ubicaciones){
+                    System.out.println(u);
+                }
+                break;
                 
-                System.out.println(Principal.caso_Once());
-                break;
+                case 11:
+
+                    System.out.println(Principal.caso_Once());
+                    break;
 
                 case 12:
-                        
+
                     for (Zombie z : zombies) {
-                    
+
                         int salud = z.getSalud();
                         int daño = 500;
                         int ataque = salud - daño;
+                        z.setSalud(ataque);
                     }
-                        //La alcaldesa le quita 500 de vida a todos los zombies
-                break;
+                    // La alcaldesa le quita 500 de vida a todos los zombies
+                    break;
 
-
-           
             }
-         } while (x != 0);
-        
+        } while (x != 0);
+
     }
 
-    public static String caso_Once(){
+    public static String caso_Once() {
         String frase1 = "Te voy a comer el cerebro";
-        String frase2 = "Los zombies de Alejandria son muy peligrosos";
-        String frase3 = "La invasion comenzó en el 2020";
-        String frase4 = "Los zombies con con pantalon rojo son los mas peligrosos";
-        String frase5 = "Loz zombies van a dominar el mundo";
+        String frase2 = "Los zombies con pantalon rojo son peligros";
+        String frase3 = "Todas las zombies son bandidas";
+        String frase4 = "ruaaaaaaaarhfgg";
+        String frase5 = "El zombie Duque es presidente";
 
-        String frase = "Chupela";
+        String frase = "Chupelo";
         Random f = new Random();
         int alazar = f.nextInt(5);
-        switch(alazar){
-            case 1 : frase = frase1;
-                    break;
-            case 2: frase = frase2;
-                    break;
-            case 3 : frase = frase3;
-                    break;
-            case 4 : frase = frase4;
-                    break;
-            case 5: frase = frase5;
-                    break;
+        switch (alazar) {
+            case 1:
+                frase = frase1;
+                break;
+            case 2:
+                frase = frase2;
+                break;
+            case 3:
+                frase = frase3;
+                break;
+            case 4:
+                frase = frase4;
+                break;
+            case 5:
+                frase = frase5;
+                break;
         }
         return frase;
     }
-
 }
